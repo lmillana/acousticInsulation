@@ -99,15 +99,15 @@ print()
 print('NIVELES EN RECEPCIÓN A1')
 print('-----------------------')
 
-A1_50_R = 55.8                               # Promedio 50 Hz en A1
+A1_50_R = 41.4                               # Promedio 50 Hz en A1
 BF50_R1 = 59.3                               # Esquina más ruidosa en 50 Hz en Recepción - A1
 A1_50BF_R = toCalcBF(BF50_R1, A1_50_R, '50') # Promedio 50 Hz en A1 según procedimiento BF
 
-A1_63_R = 54.5                               # Promedio 63 Hz en A1
+A1_63_R = 44.2                               # Promedio 63 Hz en A1
 BF63_R1 = 64.1                               # Esquina más ruidosa en 63 Hz en Recepción - A1
 A1_63BF_R = toCalcBF(BF63_R1, A1_63_R, '63') # Promedio 63 Hz en A1 según procedimiento BF
 
-A1_80_R = 45.7                               # Promedio 80 Hz en A1
+A1_80_R = 41.5                               # Promedio 80 Hz en A1
 BF80_R1 = 62.6                               # Esquina más ruidosa en 80 Hz en Recepción - A1
 A1_80BF_R = toCalcBF(BF80_R1, A1_80_R, '80') # Promedio 80 Hz en A1 según procedimiento BF
 
