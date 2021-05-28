@@ -5,7 +5,6 @@
 from pylab import *                     # Nos permite crear gráficos
 from int30 import *
 
-
 ## ARRAYS PARA TRATAR DATOS DE MANERA MÁS SENCILLA:
 # Rango de frecuencias de interes:
 FR = [50, 63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000]
@@ -19,15 +18,19 @@ SUB21 = [] # Sub-área 2, posición de altavoz A1
 SUB22 = [] # Sub-área 2, posición de altavoz A2
 
 ## SUB-ÁREAS LATERALES:
-arrayS3 = [] # Array para los resultados de la sub-área 3
-arrayS4 = [] # Array para los resultados de la sub-área 4
-arrayS5 = [] # Array para los resultados de la sub-área 5
-arrayS6 = [] # Array para los resultados de la sub-área 6
+SUB3 = [] # Array para los resultados de la sub-área 3
+SUB4 = [] # Array para los resultados de la sub-área 4
+SUB5 = [] # Array para los resultados de la sub-área 5
+SUB6 = [] # Array para los resultados de la sub-área 6
 
 LIn = [] # Array para los resultados combinados de ambas sub-áreas
 DIn = [] # Array para los resultados de la diferencia normalizada por intensimetría
-RI = []  # Array para los resultados de R'I SIN influencia de paredes laterales
-RI2 = []  # Array para los resultados de R'I CON influencia de paredes laterales
+RI = []  # Array para los resultados de R'I solo de la PARED DE SEPARACION
+RI2 = [] # Array para los resultados de R'I de la SALA
+RI3 = [] # Array para los resultados de RI' del SUB3
+RI4 = [] # Array para los resultados de RI' del SUB4
+RI5 = [] # Array para los resultados de RI' del SUB5
+RI6 = [] # Array para los resultados de RI' del SUB6
 
 
 if __name__ == "__main__":
@@ -60,13 +63,26 @@ if __name__ == "__main__":
     print('------------------------------------------')
     toRI(E, LIn, FR, RI)
 
-"""
-    print()
     print("R'I CON INFLUENCIA DE ELEMENTOS LATERALES")
     print('------------------------------------------')
-    toAdd('I74','I94',arrayS3)                 # Creamos array con los valores SUB3
-    toAdd('J74','J94', arrayS4)               # Creamos array con los valores SUB4
-    toAdd('K74','K94',arrayS5)                 # Creamos array con los valores SUB5
-    toAdd('L74','L94', arrayS6)               # Creamos array con los valores SUB6
-    toPrint3(arrayE, arrayLIn, arrayS3, arrayS4, arrayS5, arrayS6, arrayFR, toRI2, arrayRI2)
-"""
+    toAdd('I74','I94',SUB3)               # Creamos array con los valores SUB3
+    toAdd('J74','J94',SUB4)               # Creamos array con los valores SUB4
+    toAdd('K74','K94',SUB5)               # Creamos array con los valores SUB5
+    toAdd('L74','L94',SUB6)               # Creamos array con los valores SUB6
+    toRI2(E, LIn, SUB3, SUB4, SUB5, SUB6, FR, RI2)
+
+    print("R'I SUB3")
+    print('--------')
+    toRI(E, SUB3, FR, RI3)
+
+    print("R'I SUB4")
+    print('--------')
+    toRI(E, SUB4, FR, RI4)
+
+    print("R'I SUB5")
+    print('--------')
+    toRI(E, SUB5, FR, RI5)
+
+    print("R'I SUB6")
+    print('--------')
+    toRI(E, SUB6, FR, RI6)

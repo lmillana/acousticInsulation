@@ -6,6 +6,7 @@
 from openpyxl import load_workbook      # Nos permite leer de ficheros .xlsx
 import math                             # Nos permite usar funciones matemáticas
 from pylab import *                     # Nos permite crear gráficos
+from graphs import *
 
 # Variables globales
 SHEET = 'Hoja 1'             # Hoja del archivo XLSX
@@ -36,10 +37,10 @@ SUB21 = [] # Sub-área 2, posición de altavoz A1
 SUB22 = [] # Sub-área 2, posición de altavoz A2
 
 ## SUB-ÁREAS LATERALES:
-arrayS3 = [] # Array para los resultados de la sub-área 3
-arrayS4 = [] # Array para los resultados de la sub-área 4
-arrayS5 = [] # Array para los resultados de la sub-área 5
-arrayS6 = [] # Array para los resultados de la sub-área 6
+SUB3 = [] # Array para los resultados de la sub-área 3
+SUB4 = [] # Array para los resultados de la sub-área 4
+SUB5 = [] # Array para los resultados de la sub-área 5
+SUB6 = [] # Array para los resultados de la sub-área 6
 
 LIn = [] # Array para los resultados combinados de ambas sub-áreas
 DIn = [] # Array para los resultados de la diferencia normalizada por intensimetría
@@ -64,10 +65,10 @@ def toSUB(A, B, C, D, myArray):
         L = 0
         i = 0
         for cell in value:
-            L = L + value[i]
-            i = i + 1
-        myArray.append(round(L/2,1))
-    toPrint(myArray)
+            L = L + value[i]                    # Suma del barrido horizontal y vertical
+            i = i + 1                           # Siguiente elemento del array
+        myArray.append(round(L/2,1))            # Añado al array la mitad de la suma
+    toPrint(myArray)                            # Imprimimos resultados
     print()
 
 # Calculo de la combinación de resultados:
@@ -101,7 +102,7 @@ def toRI(A, B, FR, myArray):
     for num in A:
         x = 1 + ((Sb*(c/FR[i]))/(8*V))
         Kc = 10*math.log(x,(10))
-        sum = Sm*(10**(0.1*B[i]))
+        sum = Smj*(10**(0.1*B[i]))
         RI = (A[i] - 6 + 10*math.log(S/So,(10))) - 10*math.log(sum,(10)) + Kc
 
         i = i + 1                               # Siguiente elemento del array
@@ -109,18 +110,23 @@ def toRI(A, B, FR, myArray):
     toPrint(myArray)                            # Imprimimos resultados
     print()
 
-"""
 # Cálculo de la reducción sonora aparente por intensimetría para cada banda de frecuencia, R'I:
 # donde A representa el Lp en el recinto EMISOR, B el nivel de intensidad en el recinto RECEPTOR y
 # A: LpE; B: LIn; C: sub3; D: sub4; E: sub5; F: sub6.
-def toRI2(A, B, C, D, E, F, FR):
-    landa = c/FR
-    x = 1 + ((Sb*landa)/(8*V))
-    Kc = 10*math.log(x,(10))
-    sum = Sm*(10**(0.1*B)) + Smj*(10**(0.1*C)+ 10**(0.1*D) + 10**(0.1*E) + 10**(0.1*F))
-    RI = (A - 6 + 10*math.log(S/So,(10))) - 10*math.log(sum,(10)) + Kc
-    return(RI)
-"""
+def toRI2(A, B, C, D, E, F, FR, myArray):
+    i = 0
+    for num in A:
+        landa = c/FR[i]
+        x = 1 + ((Sb*landa)/(8*V))
+        Kc = 10*math.log(x,(10))
+        sum = Sm*(10**(0.1*B[i])) + Smj*(10**(0.1*C[i])+ 10**(0.1*D[i]) + 10**(0.1*E[i]) + 10**(0.1*F[i]))
+        RI = (A[i] - 6 + 10*math.log(S/So,(10))) - 10*math.log(sum,(10)) + Kc
+
+        i = i + 1                               # Siguiente elemento del array
+        myArray.append(round(RI, 1))            # Añadimos al array
+    toPrint(myArray)                            # Imprimimos resultados
+    print()
+
 
 if __name__ == "__main__":
     print('SUB-ÁREA 1 - A1')
@@ -152,12 +158,10 @@ if __name__ == "__main__":
     print('------------------------------------------')
     toRI(E, LIn, FR, RI)
 
-"""
     print("R'I CON INFLUENCIA DE ELEMENTOS LATERALES")
     print('------------------------------------------')
-    toAdd('C74','C94',arrayS3)                # Creamos array con los valores SUB3
-    toAdd('D74','D94', arrayS4)               # Creamos array con los valores SUB4
-    toAdd('E74','E94',arrayS5)                # Creamos array con los valores SUB5
-    toAdd('F74','F94', arrayS6)               # Creamos array con los valores SUB6
-    toPrint3(arrayE, arrayLIn, arrayS3, arrayS4, arrayS5, arrayS6, arrayFR, toRI2, arrayRI2)
-"""
+    toAdd('C74','C94',SUB3)               # Creamos array con los valores SUB3
+    toAdd('D74','D94',SUB4)               # Creamos array con los valores SUB4
+    toAdd('E74','E94',SUB5)               # Creamos array con los valores SUB5
+    toAdd('F74','F94',SUB6)               # Creamos array con los valores SUB6
+    toRI2(E, LIn, SUB3, SUB4, SUB5, SUB6, FR, RI2)
