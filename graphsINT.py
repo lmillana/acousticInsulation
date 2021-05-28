@@ -8,15 +8,15 @@ from graphs import *
 FR = ['50', '63', '80', '100', '125', '160', '200', '250', '315', '400', '500', '630', '800', '1000', '1250', '1600', '2000','2500', '3150', '4000', '5000']
 
 ## ARRAYS SUB-ÁREA 1:
-H11 = []
-V11 = []
-H12 = []
-V12 = []
+H11 = [] ## BARRIDO HORIZONTAL - POSICIÓN A1
+V11 = [] ## BARRIDO VERTICAL - POSICIÓN A1
+H12 = [] ## BARRIDO HORIZONTAL - POSICIÓN A2
+V12 = [] ## BARRIDO VERTICAL - POSICIÓN A2
 ## ARRAYS SUB-ÁREA 2:
-H21 = []
-V21 = []
-H22 = []
-V22 = []
+H21 = [] ## BARRIDO HORIZONTAL - POSICIÓN A1
+V21 = [] ## BARRIDO VERTICAL - POSICIÓN A1
+H22 = [] ## BARRIDO HORIZONTAL - POSICIÓN A2
+V22 = [] ## BARRIDO VERTICAL - POSICIÓN A2
 
 
 ## SUB1
@@ -45,5 +45,5 @@ plot(FR, H21, 'co-', V21, 'bo-',H22, 'go-', V22, 'yo-')        # Genera el gráf
 toDraw('INTENSIDAD EN LA SUB-ÁREA 2 DE LA PARED DE SEPARACIÓN',
 ('Horizontal - A1', 'Vertical - A1','Horizontal - A2', 'Vertical - A2'))
 
-tight_layout()          # Permite ajustar la leyenda fuera del gráfico
+tight_layout()        # Permite ajustar la leyenda fuera del gráfico
 show()                # Muestra el gráfico
